@@ -1,0 +1,52 @@
+* Haskell compiler components
+** ghc - Compile to native code
+** ghci - Interactive scripting
+** runghc - Run Programs as script
+* ghci operation
+** commands starts with :
+** :quit
+** :set +t to refer to operation as variable it
+** :unset +t
+** :module + Data.Ratio to add module, - to remove it
+** :m +Data.Int for short
+** :type var to show the variable name
+** also have constants like pi
+** keyword let to define our own function 
+   let e = exp 1
+** functions don't need parenthesis, parens required to control the order of execution.
+** show what variables are there
+:show bindings
+** Lists
+*** Simple list 
+let l = [1,2,3]
+*** Enumerated list 
+let el= [1..10]
+*** next item in sequence
+succ 7
+*** previous item in sequence
+pred 8
+*** Adding lists using ++
+let bigger = [2,3,4] ++ [5..10]
+*** Only same type of items in the list
+*** Add item to the beginning :
+let onemore = 2 : [3,4,5]
+** String
+*** goes into double quotes.
+let string = "This is a big string."
+*** character goes into single quotes.
+let c = 'c'
+*** this will be illegal
+let twochar='ac'
+*** print a string
+putStrLn "Printing a string\n"
+* Type System
+** Everything has a type
+** Strong, Static, and inferred
+** Types
+*** Char - Unicode
+*** Bool
+*** Int - Fixed Width, Can OverFlow
+*** Integer - Unbounded, Expensive, overFlow Handled
+*** Double
+*** find type of object
+:type val
