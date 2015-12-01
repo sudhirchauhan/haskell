@@ -3,6 +3,8 @@
 ** ghci - Interactive scripting
 ** runghc - Run Programs as script
 * ghci operation
+** loading files into ghci
+:load file.hs
 ** commands starts with :
 ** :quit
 ** :set +t to refer to operation as variable it
@@ -11,8 +13,11 @@
 ** :m +Data.Int for short
 ** :type var to show the variable name
 ** also have constants like pi
-** keyword let to define our own function 
+** keyword let to define our own values, can also reassign 
    let e = exp 1
+** assignment in script is diffrent, cannot reassign
+x = 10 
+x = 11 this will be illegal
 ** functions don't need parenthesis, parens required to control the order of execution.
 ** show what variables are there
 :show bindings
@@ -30,6 +35,14 @@ let bigger = [2,3,4] ++ [5..10]
 *** Only same type of items in the list
 *** Add item to the beginning :
 let onemore = 2 : [3,4,5]
+*** get first  item of the list
+head
+*** get rest of the list
+tail
+*** get n elements of list
+take n list
+*** get all but first n
+drop n list
 ** String
 *** goes into double quotes.
 let string = "This is a big string."
@@ -42,7 +55,6 @@ putStrLn "Printing a string\n"
 * Type System
 ** Everything has a type
 ** Strong, Static, and inferred
-** Types
 *** Char - Unicode
 *** Bool
 *** Int - Fixed Width, Can OverFlow
@@ -50,3 +62,15 @@ putStrLn "Printing a string\n"
 *** Double
 *** find type of object
 :type val
+*** functions have type signature
+*** 
+* Indentations are important
+* Evaluation
+** lazily, not evaluated until needed,short circuit
+** unevaluated/deferred expression is called thunk, haskell keeps track
+** haskell functions can be polymorphic, types can be parameterised 
+:type last
+last :: [a] -> a
+last takes any list of type 'a' and return element from it.
+** type variable name are  kept short 'a', 'b' etc
+** 
