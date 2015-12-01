@@ -74,3 +74,4 @@ last :: [a] -> a
 last takes any list of type 'a' and return element from it.
 ** type variable name are  kept short 'a', 'b' etc
 ** 
+* 
