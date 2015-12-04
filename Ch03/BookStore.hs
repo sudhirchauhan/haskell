@@ -25,7 +25,7 @@ type BookRecord = (BookInfo, BookReview)
 
 -- also used to create short names
 
---- Algebric Data Types
+--- Known as Algebric Data Types which is diffrent from Abstract Data type
 
 type CardHolder = String
 type CardNumber = String
@@ -33,5 +33,65 @@ type Address = [String]
 
 data BillingInfo = CreditCard CardNumber CardHolder Address
                  | CachOnDelivery
-                 |Invoice CustomerId
-                 deriving (Show)
+                 | Invoice CustomerId
+                   deriving (Show)
+-- | Acts like a discrimination union allowing one of three options.
+-- each option itself is a type
+
+-- PATTERN MATCHING --
+-- Function is defined as series of patterns
+-- Ordering is important from specific to generic
+-- Same function is repeated again and again.
+
+sumList (x:xs) = x + sumList xs
+sumList [] = 0
+
+-- Values can be matched too
+
+third (a,b,c) = c
+
+-- Matches and returns c from the tuple
+-- If there are Literals, then they should match explicitly
+
+complicated(True,a,x:xs,5) = (a,xs)
+
+-- This one will take a tuple and return element a and rest of the list xs.
+
+
+-- Algebrix data types are matched using their value constructors
+
+bookId (Book id title authors) = id
+bookTitle (Book id title authors) = title
+bookAuthors (Book id title authors) = authors
+
+-- These will take Book data type and return id, title, and authors respectively.
+
+-- _ is used to do a wildcard match and type less
+
+bookIdAgain (Book id _ _) = id
+bookTitleAgain (Book _ title _) = title
+bookAuthorsAgain (Book _ _ authors) = authors
+
+-- Records and shortcuts to allow creation of type as well as their deconstrcutors
+-- Fields are separated by ,
+-- Enclosed within {}
+
+data Customer = Customer {
+   customerId      :: CustomerId
+ , customerName    :: String
+ , customerAddress :: Address
+ } deriving (Show)
+
+mycustomer = Customer 23 "Me" ["Here"]
+-- individual fields can be accessed like this
+mycustomerName = customerName mycustomer
+
+
+-- Maybe and Just type, what is below does not need to be done. However Maybe and Just are already defined so they should just be used
+-- Maybe is used to define  optional type
+
+data BookInfoOptional = BookOptional Int String Maybe
+deriving (Show)
+
+--bookWithAuthors = BookOptional 23 "Sonata" (Just["Author1","So on"])
+-- bookWithAnounymous = BookOptional 24 "Hydrogen" Nothing
