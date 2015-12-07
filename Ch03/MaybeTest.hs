@@ -1,0 +1,1 @@
+data Test =  Test  String | Nothing  deriving (Show)
