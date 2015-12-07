@@ -89,11 +89,18 @@ mycustomerName = customerName mycustomer
 
 -- Maybe and Just type, what is below does not need to be done. However Maybe and Just are already defined so they should just be used
 -- Maybe is used to define  optional type
+<<<<<<< HEAD
 data  AuthorName = AuthorName Just String
                  |Nothing
 data BookInfoOptional = BookOptional Int String AuthorName deriving (Show)
 
 --bookWithAuthors = BookOptional 23 "Sonata" (Just["Author1","So on"])
+=======
+type Authors = String
+data BookInfoOptional = BookInfoOptional Int String  Authors
+
+bookWithAuthors = BookInfoOptional 23 "Sonata" "Banks"
+>>>>>>> 9d6416607ac28487734fcc6b2f3bdff28fed2779
 -- bookWithAnounymous = BookOptional 24 "Hydrogen" Nothing
 
 
