@@ -63,7 +63,6 @@ putStrLn "Printing a string\n"
 *** find type of object
 :type val
 *** functions have type signature
-*** 
 * Indentations are important
 * Evaluation
 ** lazily, not evaluated until needed,short circuit
@@ -73,5 +72,39 @@ putStrLn "Printing a string\n"
 last :: [a] -> a
 last takes any list of type 'a' and return element from it.
 ** type variable name are  kept short 'a', 'b' etc
-** 
-* 
+** if one data type is encapulated within other, it needs to be initialized explictily.
+data Authors = Authors Maybe Stirng
+
+Data Book = Book Int String Authors
+then this cannot be done
+book = Book 23 "Hello Title" "I am the Author"
+it needs to be
+book = Book 23 "Hello Title" (Authors "I am him")
+But if it is defined using type synonym
+type Authors = String
+then 
+book = Book 222 "My Title" "My Author"
+is legal
+* Recursive Types
+** Maybe Type can be used to define missing values
+data Tree a = Tree(Maybe(a,Tree a,Tree a)) deriving (Show)
+** Recursive types are defined in term of themselves
+** However often it is easier to name components explicitly
+data Tree a = Node a (Tree a) (Tree a)
+            | Empty
+            deriving (Show)
+** Resoning becomes easier in comparision to when everyting is defined interms of itself
+
+** let and where are sed to define 
+lend amount balance = let reserve = 100
+                          newBalance = amount - reserve
+                      in  if balance < reserve
+                          then Noting
+                          else Just newbalance
+
+*** let follows this
+let <bindings>
+in <expressiona>
+*** binding defined are accessible after in.
+*** let and in keywords should align
+*** can be nested.
