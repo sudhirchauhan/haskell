@@ -10,5 +10,5 @@ isPalindrome xs
 
 secondToSecondLast :: [a] -> [a]
 secondToSecondLast (x:[]) = []
---secondToSecondLast xs = 
+secondToSecondLast xs = [(head (tail xs))] ++ secondToSecondLast (tail xs)
                             
