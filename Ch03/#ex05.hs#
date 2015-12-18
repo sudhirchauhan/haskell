@@ -1,0 +1,6 @@
+--  return true if list is a palindrome
+isPalindrome :: [a] -> Bool
+
+isPalindrome [] = True
+
+isPa
