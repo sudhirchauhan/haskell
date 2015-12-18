@@ -3,4 +3,4 @@ isPalindrome :: [a] -> Bool
 
 isPalindrome [] = True
 
-isPa
+isPalindrome x
