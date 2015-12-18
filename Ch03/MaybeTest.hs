@@ -1,3 +1,5 @@
+data Test =  Test  String | Nothing  deriving (Show)
+=======
 data Authors = Authors (Maybe String)
              deriving (Show)
 --
@@ -26,4 +28,3 @@ root  = AnotherTree (Just("root",left,right))
 
 --  In Comparision this is very hard
 allinone = AnotherTree(Just("root",AnotherTree(Just("left",AnotherTree Nothing,AnotherTree Nothing)),AnotherTree(Just("right",AnotherTree Nothing,AnotherTree Nothing))))
-
