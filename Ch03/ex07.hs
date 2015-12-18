@@ -4,5 +4,5 @@ intersperseList :: a -> [[a]] -> [a]
 
 intersperseList sep [[]] = []
 intersperseList sep [[x]] = [x]
-intersperseList sep [[xs]] = [head xs] ++ [sep] ++ intersperseList xs
+--intersperseList sep [[xs]] = [head xs] ++ [sep] ++ intersperseList xs
 
