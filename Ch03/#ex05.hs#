@@ -3,10 +3,12 @@ isPalindrome ::(Eq a)=> [a] -> Bool
 
 isPalindrome [] = True
 
-isPalindrome x = True
+isPalindrome (x:[]) = True
 isPalindrome xs
   |(head xs == last xs)  = True
   | otherwise = False
 
 secondToSecondLast :: [a] -> [a]
-secondToSecondLast xs =  
+secondToSecondLast (x:[]) = []
+secondToSecondLast xs = (head (rest xs)) 
+                            
