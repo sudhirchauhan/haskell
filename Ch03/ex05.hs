@@ -9,6 +9,6 @@ isPalindrome xs
   | otherwise = False
 
 secondToSecondLast :: [a] -> [a]
-secondToSecondLast (x:[]) = []
-secondToSecondLast xs =[ head xs] ++  tail xs
+--secondToSecondLast (x:[]) = []
+secondToSecondLast xs =[ head (tail xs)] ++  ++ last xs
                             
