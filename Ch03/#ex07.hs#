@@ -1,0 +1,5 @@
+-- flatten a list
+
+intersperseList :: a -> [[a]] -> [a]
+
+intersperseList [] = []
