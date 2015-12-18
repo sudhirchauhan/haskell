@@ -7,3 +7,5 @@ isPalindrome x = True
 isPalindrome xs
   |(head xs == last xs)  = True
   | otherwise = False
+
+secondToSecondLast :: [a] -> [a]
