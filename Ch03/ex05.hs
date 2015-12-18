@@ -4,4 +4,6 @@ isPalindrome :: [a] -> Bool
 isPalindrome [] = True
 
 isPalindrome (x:[]) = True
--- isPalindrome (x:_:y:[]) =
+isPalindrome (x:y:_:z:a:[])
+  | x == a = isPalindrome(y:_:z)
+  | otherwise = False
