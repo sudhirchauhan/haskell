@@ -5,5 +5,5 @@ isPalindrome [] = True
 
 isPalindrome (x:[]) = True
 isPalindrome xs
-  | head xs == last xs  = isPalindrome xs
+  | head xs = last xs  = True
   | otherwise = False
