@@ -1,5 +1,5 @@
 --  return true if list is a palindrome
-isPalindrome :: [a] -> Bool
+isPalindrome ::(Eq a)=> [a] -> Bool
 
 isPalindrome [] = True
 
