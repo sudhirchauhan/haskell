@@ -1,3 +1,3 @@
 --
 
-data Tree a = Tree (Maybe (Node a, Tree a, Tree a))
+data Tree a = Tree (Maybe (a, Tree a, Tree a))
