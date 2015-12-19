@@ -12,7 +12,7 @@ data Direction = GoLeft | GoRight | GoStraight
                deriving(Show)
                    
 
---getDirection :: (Point a) -> (Point a) -> (Point a) -> Direction
+getDirection :: Point -> Point  -> Point -> Direction
 
 -- -- if xa == xb == xc then stright
 -- -- if xa < xb > xc then left else Right
