@@ -23,7 +23,7 @@ getDirection :: Point -> Point  -> Point -> Direction
 -- -- if xa < xb > xc then left else Right
 -- -- if xa > xb < xc then GoLeft else Right 
 getDirection x y z
-  | (xa == xb) == (x)  = GoStraight
+  | (getSlope x y) == (getSlope y z)  = GoStraight
   | (xa <= xb) && (xc <= xb)   = GoLeft
   | (xa >= xb) && (xc >= xb)   = GoLeft
   | otherwise   = GoRight
