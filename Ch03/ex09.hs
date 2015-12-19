@@ -3,9 +3,9 @@
 
 data Point = Point Integer Integer deriving (Show,Eq)
 
-data Direction = Direction Left
-                 | Right
-                 | Straight
+data Direction = Direction TurnLeft
+                 | TurnRight
+                 | GoStraight
 
 -- getDirection :: Point a -> Point a -> Point a -> Direction
 
