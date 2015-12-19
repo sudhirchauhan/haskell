@@ -8,9 +8,7 @@ type TurnLeft   = Integer
 type TurnRight  = Integer
 type GoStraight = Integer
 
-data Direction = Direction TurnLeft
-               | TurnRight
-               | GoStraight
+data Direction = Direction TurnLeft | TurnRight | GoStraight
                deriving(Show)
                    
 
