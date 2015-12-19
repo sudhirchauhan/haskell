@@ -9,4 +9,5 @@ data Direction = Direction Left
 
 getDirection :: Point a -> Point a -> Point a -> Direction
 
-getDirection [] =
+-- if xa < xb <xc then left else r
+getDirection (Point xa ya)  (Point xb yb) (Point xc yc) = 
