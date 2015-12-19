@@ -9,8 +9,10 @@ type TurnRight  = Integer
 type GoStraight = Integer
 
 data Direction = Direction TurnLeft
-                 | TurnRight
-                 | GoStraight
+               | TurnRight
+               | GoStraight
+               deriving(Show)
+                   
 
 -- getDirection :: Point a -> Point a -> Point a -> Direction
 
