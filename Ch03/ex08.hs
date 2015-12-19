@@ -8,5 +8,9 @@ data Tree a = Node a (Tree a) (Tree a)
 treeHeight :: Tree a -> Integer
 treeHeight (Empty) = 0
 treeHeight (Node x Empty Empty) = 1
---treeHeight Node x (Tree x) Empty = 1 + (treeHeight Tree x)
+treeHeight (Node _ left Empty)  = 
+treeHeight (Node x left right)  = let lh = treeHeight left
+                                     rh = treeHeight right
+                                  in 
+ 
 
