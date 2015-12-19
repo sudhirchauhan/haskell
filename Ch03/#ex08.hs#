@@ -14,6 +14,6 @@ treeHeight (Node _ Empty right)  = 1 + treeHeight right
 treeHeight (Node x left right)  = let lh = 1 + treeHeight left
                                       rh = 1 + treeHeight right
                                   in case (lh <= rh) of
-                                         
- 
+                                         True -> rh
+                                         otherwis ->  
 
