@@ -4,11 +4,11 @@
 data Point = Point Integer Integer deriving (Show,Eq)
 
 
---type TurnLeft   = Integer
+--type TurnGoLeft   = Integer
 --type TurnRight  = Integer
 --type GoStraight = Integer
 
-data Direction = Left | Right | Straight
+data Direction = GoLeft | GoRight | GoStraight
                deriving(Show)
                    
 
@@ -16,9 +16,9 @@ getDirection :: Point a -> Point a -> Point a -> Direction
 
 -- -- if xa == xb == xc then stright
 -- -- if xa < xb > xc then left else Right
--- -- if xa > xb < xc then Left else Right 
+-- -- if xa > xb < xc then GoLeft else Right 
 getDirection (Point xa ya)  (Point xb yb) (Point xc yc)
-  | (xa == xb)  = Straight
-  | (xa < xb)   = Left
-  | (xa > xb)   = Left
-  | otherwise   = Right
+  | (xa == xb)  = GoStraight
+  | (xa < xb)   = GoLeft
+  | (xa > xb)   = GoLeft
+  | otherwise   = GoRight
