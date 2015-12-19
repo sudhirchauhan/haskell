@@ -22,8 +22,8 @@ getDirection :: Point -> Point  -> Point -> Direction
 -- -- if xa == xb == xc then stright
 -- -- if xa < xb > xc then left else Right
 -- -- if xa > xb < xc then GoLeft else Right 
-getDirection (Point xa ya)  (Point xb yb) (Point xc yc)
-  | (xa == xb) == (xb == xc)  = GoStraight
+getDirection x y z
+  | (xa == xb) == (x)  = GoStraight
   | (xa <= xb) && (xc <= xb)   = GoLeft
   | (xa >= xb) && (xc >= xb)   = GoLeft
   | otherwise   = GoRight
