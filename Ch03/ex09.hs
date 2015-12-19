@@ -18,7 +18,7 @@ getDirection :: Point a -> Point a -> Point a -> Direction
 -- -- if xa < xb > xc then left else Right
 -- -- if xa > xb < xc then Left else Right 
 getDirection (Point xa ya)  (Point xb yb) (Point xc yc)
-  | (xa == xb == xb) = Straight
-  | (xa < xb > xc)   = Left
-  | (xa > xb < xc)   = Left
-  | otherwise        = Right
+  | (xa == xb)  = Straight
+  | (xa < xb)   = Left
+  | (xa > xb)   = Left
+  | otherwise   = Right
