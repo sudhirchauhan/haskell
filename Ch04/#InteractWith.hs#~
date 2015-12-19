@@ -1,0 +1,19 @@
+---
+import System.Environment (getArgs)
+-- This seems to import only getArgs from System.Environment module
+
+interactsWith function inputFile outputFile = do
+  input <- readFile inputFile
+  writeFile outputFile (function input)
+
+-- I think do keyord is the fabled monad which interacts with external world.
+
+main = mainWith myFunction
+-- mainWith myFunction are just any function
+  where mainWith function = do
+    args <- getArgs
+    case args of
+      [input,output] -> interactsWith function inout output
+      _ -> putStrLn "error: exactly two arguments needed."
+
+    myFunction = id

@@ -63,7 +63,6 @@ putStrLn "Printing a string\n"
 *** find type of object
 :type val
 *** functions have type signature
-*** 
 * Indentations are important
 * Evaluation
 ** lazily, not evaluated until needed,short circuit
