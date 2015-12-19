@@ -1,7 +1,7 @@
 -- Directions data type
 -- Given three points return left or right depending upon the angle abc formed between ab and bc
 
-data Point = Point Integer Integer deriving (Show,Eq)
+data Point = Point Double Double  deriving (Show,Eq)
 
 
 --type TurnGoLeft   = Integer
@@ -12,8 +12,8 @@ data Direction = GoLeft | GoRight | GoStraight
                deriving(Show)
                    
 
---getSlope :: Point -> Point -> Integer
---getSlope (Point xa ya) (Point xb yb) = (yb -ya)/(xb -xa)
+getSlope :: Point -> Point -> Double
+getSlope (Point xa ya) (Point xb yb) = (yb -ya) `div` (xb -xa)
 
 
 
