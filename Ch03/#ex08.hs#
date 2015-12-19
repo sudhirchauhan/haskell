@@ -9,7 +9,5 @@ treeHeight :: Tree a -> Integer
 treeHeight (Empty) = 0
 treeHeight (Node x Empty Empty) = 1
 treeHeight (Node x left right) = let lh = 0
-                                     rh = 0
-                                     lheight = treeHeight left
-     
+                                     rh 
 
