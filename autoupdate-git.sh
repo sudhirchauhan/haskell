@@ -16,7 +16,7 @@ fi
 
 ### This script will read the current branch name and if it is "wip".
 ## Checkout wip branch if current branch is not wip
-WIP_BRANCH="wip"
+WIP_BRANCH="master"
 CURR_BRANCH=`git branch | sed -n '/\* /s///p'`
 CURR_DIR=`pwd`
 WAIT=60
