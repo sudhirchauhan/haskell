@@ -3,6 +3,11 @@
 
 data Point = Point Integer Integer deriving (Show,Eq)
 
+
+type TurnLeft   = Integer
+type TurnRight  = Integer
+type GoStraight = Integer
+
 data Direction = Direction TurnLeft
                  | TurnRight
                  | GoStraight
