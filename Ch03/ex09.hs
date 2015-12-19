@@ -12,6 +12,7 @@ data Direction = GoLeft | GoRight | GoStraight
                deriving(Show)
                    
 
+getSlope :: Point -> Point -> Integer
 getSlope (Point xa ya) (Point xb yb) = (yb -ya)/(xb -xa)
 
 
