@@ -24,10 +24,10 @@ splitLinesAnother cs =
 
 
 
-myBreak []   = ("","")
+myBreak f []   = ("","")
 
-myBreak ('\n':xs)  = ("",'\n':xs)
-myBreak cs  = let fst =""
+myBreak f ('\n':xs)  = ("",'\n':xs)
+myBreak f cs  = let fst =""
                     -- rst = []
                   f xs fst
                       | (head xs == '\n') = (fst,xs)
