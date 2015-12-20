@@ -13,10 +13,9 @@ splitLines cs  =
 isLineTerminator c = c == '\r' || c == '\n'
 
 splitLinesAnother [] = []
-splitLinesAnother (x:xs) =
-  let pre:case suf of
+splitLinesAnother (x:xs) = let pre:case suf of
                 ('\r':'\n':rest)   -> splitLinesAnother rest
                 ('\r':rest)        -> splitLinesAnother rest
                 ('\n':rest)        -> splitLinesAnother rest
-                _                  -> [])
+                _                  -> []
   in (pre: suf) = break isLineTerminator (x:xs)
