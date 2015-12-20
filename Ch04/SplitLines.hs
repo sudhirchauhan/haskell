@@ -27,8 +27,8 @@ splitLinesAnother cs =
 myBreak f []   = ("","")
 
 myBreak f ('\n':xs)  = ("",'\n':xs)
-myBreak f (x:xs)  = let fst  =""
-                         acc fst (c:cs)= f cs 
+myBreak f (x:xs)  = let fst  = ""
+                        acc fst (c:cs)= f cs 
                         case f of
                           True -> (fst,xs)
                           _    -> acc f (fst ++ [x])
