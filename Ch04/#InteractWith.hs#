@@ -15,7 +15,7 @@ main = mainWith myFunction
           _ -> putStrLn "error: exactly two arguments needed."
 myFunction = functionToTest
 
--- functionToTest is the function we will be pass to 2main
+-- functionToTest is the function we will be pass to main
 
 
 
