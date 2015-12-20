@@ -16,7 +16,7 @@ splitLinesAnother [] = []
 splitLinesAnother x:xs =
   let (pre,suf) = break isLineTerminator (x:xs)
   in  pre: case suf of
-        ('\r':'\n':rest)   -> splitLinesAnother rest
-        ('\r':rest)        -> splitLinesAnother rest
-        ('\n':rest)        -> splitLinesAnother rest
-        _                  -> []
+   ('\r':'\n':rest)   -> splitLinesAnother rest
+   ('\r':rest)        -> splitLinesAnother rest
+   ('\n':rest)        -> splitLinesAnother rest
+   _                 -> []
