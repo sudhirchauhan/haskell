@@ -28,8 +28,8 @@ myBreak f []   = ("","")
 
 myBreak f ('\n':xs)  = ("",'\n':xs)
 myBreak f (x:xs)  = let fst  = ""
-                        acc c:cs = fst ++ [c]  
+                        acc x:xs = fst ++ [x]  
                         case f of
                           True -> (fst,xs)
-                          _    -> acc (fst ++ [x])
+                          _    -> acc xs
                     in acc x:xs
