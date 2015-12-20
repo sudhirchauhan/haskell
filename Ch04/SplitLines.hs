@@ -20,4 +20,4 @@ splitLinesAnother x:xs =
    ('\r':rest)        -> splitLinesAnother rest
    ('\n':rest)        -> splitLinesAnother rest
    _                  -> []
-  in (pre,suf) = break isLineTerminator cs
+  in (pre,suf) = break isLineTerminator (x:xs)
