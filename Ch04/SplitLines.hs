@@ -23,6 +23,6 @@ splitLinesAnother cs =
 
 
 
-
+myBreak :: (a -> Bool) -> [a] -> ([a],[a])
 myBreak f []   = ([],[])
-myBreak f ('\n':xs)  = ("",'\n':xs)
+myBreak f ('\n':xs)  = ([],'\n':xs)
