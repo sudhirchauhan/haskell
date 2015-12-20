@@ -27,11 +27,8 @@ splitLinesAnother cs =
 myBreak f []   = ("","")
 
 myBreak f ('\n':xs)  = ("",'\n':xs)
-myBreak f cs  = let fst =""
-                    -- rst = []
-                  f xs fst
-                      | (head xs == '\n') = (fst,xs)
-                      | otherwise         = f (tail xs) (fst ++ [head xs]) 
-                     -- case (head xs) of' -> (fst, xs)
-                      --  _    -> (fst:head xs, f (tail xs))
-              in f  cs fst
+myBreak f (x:xs)  = let fst =""
+                        case f of
+                          True -> (fst,xs)
+                          _    -> f xs (fst ++ [x])
+                    in 
