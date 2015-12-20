@@ -20,9 +20,3 @@ splitLinesAnother cs =
    ('\r':rest)        -> splitLinesAnother rest
    ('\n':rest)        -> splitLinesAnother rest
    _                  -> []
-
-
-
-myBreak :: (a -> Bool) -> [a] -> ([a],[a])
-myBreak f []   = ([],[])
-myBreak f ('\n':xs)  = ([],'\n':xs)
