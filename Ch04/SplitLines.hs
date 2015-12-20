@@ -29,9 +29,9 @@ myBreak []   = ("","")
 myBreak ('\n':xs)  = ("",'\n':xs)
 myBreak cs  = let fst =""
                     -- rst = []
-                    f xs fst
+                  f xs fst
                       | (head xs == '\n') = (fst,xs)
                       | otherwise         = f (tail xs) (fst ++ [head xs]) 
                      -- case (head xs) of' -> (fst, xs)
                       --  _    -> (fst:head xs, f (tail xs))
-                in f  cs fst
+              in f  cs fst
