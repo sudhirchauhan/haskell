@@ -31,4 +31,3 @@ myBreak f (x:xs)  = let fst =""
                         case f of
                           True -> (fst,xs)
                           _    -> f xs (fst ++ [x])
-                    in 
