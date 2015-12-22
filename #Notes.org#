@@ -131,5 +131,6 @@ last takes any list of type 'a' and return element from it.
     lines "One line.\nTwo line." --> ["One line.","Two Line."]
 *** return list of words
     words "this is \n another" --> ["this","is", "Another"]
-*** 
+*** list of string to single string
+    unword ["this","is","it."] --> "this is it."
 

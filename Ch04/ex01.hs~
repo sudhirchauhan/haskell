@@ -1,0 +1,8 @@
+-- safe versions of head, tail, last , and init
+
+
+safeHead :: [a] -> Maybe a
+
+
+safeTail :: [a] -> Maybe a
+safeLast :: [a] -> Maybe a
