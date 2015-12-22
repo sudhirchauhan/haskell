@@ -66,7 +66,6 @@ putStrLn "Printing a string\n"
 *** find type of object
 :type val
 *** functions have type signature
-*** 
 * Indentations are important
 * Evaluation
 ** lazily, not evaluated until needed,short circuit
@@ -91,46 +90,46 @@ last takes any list of type 'a' and return element from it.
 ** Partial vs Complete function.
 *** Partial can return Error
 *** Complete never fails
-*** get first item, not a complete function
-    head [1,2,3] --> 1
-*** remove only level of nesting from lists
-    concat [[1,2],[3,4]] --> [1,2,3,4] 
-*** add two lists (append)
-     [1] ++ [2,3] --> [1,2,3]
-*** reverse a list
-    reverse [1,2,3]  --> [3,2,1]
-*** return true of every element is True
-    and [True,True,True] -> True
-*** return true if at least one is True
-    or [False,False,True] -> True
-*** return true if function 'f' return true on every item of list
-    all odd [1,3,5] --> True
-*** return true if any item satifies predicate
-    any even [1,2,3]  --> True
-*** get first 4 items of list
-    take 4 "testing" --> test
-*** drop first 3 elements
-    drop 3 [1,2,3,4] --> [4]
-*** split list
-    splitAt 2 [1,2,3] --> ([1,2],[3])
-*** keep returning the items while predicate is true
-    takeWhile odd [1,3,5,6,9] --> [1,3,5]
-*** drop elements while predicate is true
-    dropWhile odd [1,3,5,6,7] --> [6.7]
-*** break and return tuple of two lists until predicate keeps failing
-    span even [1,3,5,6,7] --> ([1,3,5],[6,7])
-*** break at the point where predicate becomes true
-    break even [1,3,5,6,8,9,10] --> ([1,3,5],[6,8,9,10])
-*** search thorugh a list and return a new list
-    filter odd [2,3,4,5,6,7] --> [3,5,7]
-*** combine two lists into list of pairs
-    zip [1,2,3] "Hello there" --> [(1,'H'),(2,'e'),(3,'l')]
-*** Combine two lists applying predicate
-    zipWith (+) [1..3] [4..6]  --> [5,7,9]
-*** return lines
-    lines "One line.\nTwo line." --> ["One line.","Two Line."]
-*** return list of words
-    words "this is \n another" --> ["this","is", "Another"]
-*** list of string to single string
-    unword ["this","is","it."] --> "this is it."
+** get first item, not a complete function
+   head [1,2,3] --> 1
+** remove only level of nesting from lists
+   concat [[1,2],[3,4]] --> [1,2,3,4] 
+** add two lists (append)
+    [1] ++ [2,3] --> [1,2,3]
+** reverse a list
+   reverse [1,2,3]  --> [3,2,1]
+** return true of every element is True
+   and [True,True,True] -> True
+** return true if at least one is True
+   or [False,False,True] -> True
+** return true if function 'f' return true on every item of list
+   all odd [1,3,5] --> True
+** return true if any item satifies predicate
+   any even [1,2,3]  --> True
+** get first 4 items of list
+   take 4 "testing" --> test
+** drop first 3 elements
+   drop 3 [1,2,3,4] --> [4]
+** split list
+   splitAt 2 [1,2,3] --> ([1,2],[3])
+** keep returning the items while predicate is true
+   takeWhile odd [1,3,5,6,9] --> [1,3,5]
+** drop elements while predicate is true
+   dropWhile odd [1,3,5,6,7] --> [6.7]
+** break and return tuple of two lists until predicate keeps failing
+   span even [1,3,5,6,7] --> ([1,3,5],[6,7])
+** break at the point where predicate becomes true
+   break even [1,3,5,6,8,9,10] --> ([1,3,5],[6,8,9,10])
+** search thorugh a list and return a new list
+   filter odd [2,3,4,5,6,7] --> [3,5,7]
+** combine two lists into list of pairs
+   zip [1,2,3] "Hello there" --> [(1,'H'),(2,'e'),(3,'l')]
+** Combine two lists applying predicate
+   zipWith (+) [1..3] [4..6]  --> [5,7,9]
+** return lines
+   lines "One line.\nTwo line." --> ["One line.","Two Line."]
+** return list of words
+   words "this is \n another" --> ["this","is", "Another"]
+** combile list of words into a string.
+   unword []
 
