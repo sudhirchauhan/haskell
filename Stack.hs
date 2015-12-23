@@ -1,5 +1,5 @@
 --
-module Stack (Stack, insert,swap) where
+module Stack (Stack,swap) where
 
 type Stack w = [w]
 
