@@ -1,0 +1,603 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="generator" content="MediaWiki 1.19.14+dfsg-1" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="HaskellWiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.haskell.org/api.php?action=rsd" />
+<link rel="copyright" href="/HaskellWiki:Copyrights" />
+<link rel="alternate" type="application/atom+xml" title="HaskellWiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>Roll your own IRC bot - HaskellWiki</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "/wikistatic/skins//common/shared.css?303";
+			@import "/wikistatic/skins//hawiki/main.css?303";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="/wikistatic/skins//common/commonPrint.css?303" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "/wikistatic/skins//hawiki/IE50Fixes.css?303";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "/wikistatic/skins//hawiki/IE55Fixes.css?303";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "/wikistatic/skins//hawiki/IE60Fixes.css?303";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "/wikistatic/skins//hawiki/IE70Fixes.css?303";</style><![endif]-->
+		<!--[if lte IE 7]><script type="text/javascript" src="/wikistatic/skins//hawiki/IEFixes.js?303"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+                                                <script type="text/javascript">
+                        var isMSIE55 = (window.showModalDialog && window.clipboardData && window.createPopup); /*alert("test: " + isMSIE55);*/</script>
+
+		<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Roll_your_own_IRC_bot","wgTitle":"Roll your own IRC bot","wgCurRevisionId":59856,"wgArticleId":2034,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Roll_your_own_IRC_bot","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script>
+		<script type="text/javascript" src="/wikistatic/skins//common/wikibits.js?303"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script src="https://wiki.haskell.org/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=hawiki&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Roll_your_own_IRC_bot","wgTitle":"Roll your own IRC bot","wgCurRevisionId":59856,"wgArticleId":2034,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Roll_your_own_IRC_bot","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":1,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"hawiki","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: wikidb_haskell:resourceloader:filter:minify-js:7:befcdb5e3b24ff89f900613de9ed4ea3 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><style type="text/css">/*<![CDATA[*/
+.source-haskell {line-height: normal;}
+.source-haskell li, .source-haskell pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for haskell
+ * CSS class: source-haskell, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.haskell.source-haskell .de1, .haskell.source-haskell .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.haskell.source-haskell  {font-family:monospace;}
+.haskell.source-haskell .imp {font-weight: bold; color: red;}
+.haskell.source-haskell li, .haskell.source-haskell .li1 {font-weight: normal; vertical-align:top;}
+.haskell.source-haskell .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.haskell.source-haskell .li2 {font-weight: bold; vertical-align:top;}
+.haskell.source-haskell .kw1 {color: #06c; font-weight: bold;}
+.haskell.source-haskell .kw2 {color: #06c; font-weight: bold;}
+.haskell.source-haskell .kw3 {font-weight: bold;}
+.haskell.source-haskell .kw4 {color: #cccc00; font-weight: bold;}
+.haskell.source-haskell .kw5 {color: maroon;}
+.haskell.source-haskell .co1 {color: #5d478b; font-style: italic;}
+.haskell.source-haskell .co2 {color: #339933; font-weight: bold;}
+.haskell.source-haskell .co3 {color: #5d478b; font-style: italic;}
+.haskell.source-haskell .coMULTI {color: #5d478b; font-style: italic;}
+.haskell.source-haskell .es0 {background-color: #3cb371; font-weight: bold;}
+.haskell.source-haskell .br0 {color: green;}
+.haskell.source-haskell .sy0 {color: #339933; font-weight: bold;}
+.haskell.source-haskell .st0 {background-color: #3cb371;}
+.haskell.source-haskell .nu0 {color: red;}
+.haskell.source-haskell .me1 {color: #060;}
+.haskell.source-haskell .ln-xtra, .haskell.source-haskell li.ln-xtra, .haskell.source-haskell div.ln-xtra {background-color: #ffc;}
+.haskell.source-haskell span.xtra { display:block; }
+
+/*]]>*/
+</style>	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Roll_your_own_IRC_bot skin-hawiki">
+   <div id="topbar" class="noprint">
+	<div class="portlet noprint" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul><li><a class="homebutton" href="/Haskell">Home</a></li>
+				<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Roll+your+own+IRC+bot">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+        	  <div id="p-search">
+	    <div id="searchBody" class="pBody">
+	       <form action="/index.php" id="searchform"><div>
+	          <input type='hidden' name="title" value="Special:Search"/>
+	          <input id="searchInput" name="search" type="text" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+
+	         </div></form>
+	    </div>
+	  </div>
+   </div>
+	<div id="globalWrapper">
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/wikistatic/haskellwiki_logo.png);" href="/Haskell"></a>
+	</div>
+	<div id="column-content">
+        <div id="notice-area" class="noprint">
+        <!-- ?php $this->data['sitenotice'] = 'This is a test instance.  Do not edit, your changes will be lost.'; ? -->
+			        </div>
+        <div id="content-wrapper">
+	<div id="p-cactions" class="portlet noprint">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/Roll_your_own_IRC_bot">Page</a></li>
+				 <li id="ca-talk"><a href="/Talk:Roll_your_own_IRC_bot">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="/index.php?title=Roll_your_own_IRC_bot&amp;action=edit">View source</a></li>
+				 <li id="ca-history"><a href="/index.php?title=Roll_your_own_IRC_bot&amp;action=history">History</a></li>			</ul>
+		</div>
+	</div>
+                        <div id="content">
+		<a name="top" id="top"></a>
+                        <h1 id="firstHeading" class="firstHeading">Roll your own IRC bot</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From HaskellWiki</h3>
+			<div id="contentSub"></div>
+			<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This tutorial is designed as a practical guide to writing real world
+code in <a rel="nofollow" class="external text" href="http://haskell.org">Haskell</a> and hopes to intuitively motivate
+and introduce some of the advanced features of Haskell to the novice
+programmer. Our goal is to write a concise, robust and elegant
+<a rel="nofollow" class="external text" href="http://haskell.org/haskellwiki/IRC_channel">IRC</a> bot in Haskell.
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Getting_started"><span class="tocnumber">1</span> <span class="toctext">Getting started</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Talking_IRC"><span class="tocnumber">2</span> <span class="toctext">Talking IRC</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#A_simple_interpreter"><span class="tocnumber">3</span> <span class="toctext">A simple interpreter</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Roll_your_own_monad"><span class="tocnumber">4</span> <span class="toctext">Roll your own monad</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Extending_the_bot"><span class="tocnumber">5</span> <span class="toctext">Extending the bot</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Where_to_now.3F"><span class="tocnumber">6</span> <span class="toctext">Where to now?</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Getting_started">1  Getting started </span></h2>
+<p>You'll need a reasonably recent version of <a rel="nofollow" class="external text" href="http://haskell.org/ghc">GHC</a>
+or <a rel="nofollow" class="external text" href="http://haskell.org/hugs">Hugs</a>. Our first step is to get on the
+network. So let's start by importing the Network package, and the
+standard IO library and defining a server to connect to.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">import</span> Network
+<span class="kw1">import</span> System<span class="sy0">.</span><span class="kw4">IO</span>
+&#160;
+server <span class="sy0">=</span> <span class="st0">&quot;irc.freenode.org&quot;</span>
+port   <span class="sy0">=</span> <span class="nu0">6667</span>
+&#160;
+main <span class="sy0">=</span> <span class="kw1">do</span>
+    h <span class="sy0">&lt;-</span> connectTo server <span class="br0">&#40;</span>PortNumber <span class="br0">&#40;</span><span class="kw3">fromIntegral</span> port<span class="br0">&#41;</span><span class="br0">&#41;</span>
+    hSetBuffering h NoBuffering
+    t <span class="sy0">&lt;-</span> hGetContents h
+    <span class="kw3">print</span> t</pre></div></div>
+<p>The key here is the <code>main</code> function. This is the entry point to a Haskell program. We first connect to the server, then set the buffering on the socket off. Once we've got a socket, we can then just read and print any data we receive.
+</p><p>Put this code in the module <code>1.hs</code> and we can then run it. Use whichever system you like:
+</p><p>Using runhaskell:
+</p>
+<pre>   $ runhaskell 1.hs
+   "NOTICE AUTH&#160;:*** Looking up your hostname...\r\nNOTICE AUTH&#160;:***
+   Checking ident\r\nNOTICE AUTH&#160;:*** Found your hostname\r\n ...
+</pre>
+<p>Or we can just compile it to an executable with GHC:
+</p>
+<pre>   $ ghc --make 1.hs -o tutbot
+   Chasing modules from: 1.hs
+   Compiling Main             ( 1.hs, 1.o )
+   Linking ...
+   $ ./tutbot
+   "NOTICE AUTH&#160;:*** Looking up your hostname...\r\nNOTICE AUTH&#160;:***
+   Checking ident\r\nNOTICE AUTH&#160;:*** Found your hostname\r\n ...
+</pre>
+<p>Or using GHCi:
+</p>
+<pre>   $ ghci 1.hs
+   *Main&gt; main
+   "NOTICE AUTH&#160;:*** Looking up your hostname...\r\nNOTICE AUTH&#160;:***
+   Checking ident\r\nNOTICE AUTH&#160;:*** Found your hostname\r\n ...
+</pre>
+<p>Or in Hugs:
+</p>
+<pre>   $ runhugs 1.hs
+   "NOTICE AUTH&#160;:*** Looking up your hostname...\r\nNOTICE AUTH&#160;:***
+   Checking ident\r\nNOTICE AUTH&#160;:*** Found your hostname\r\n ...
+</pre>
+<p>Great! We're on the network.
+</p>
+<h2> <span class="mw-headline" id="Talking_IRC">2  Talking IRC </span></h2>
+<p>Now we're listening to the server, we better start sending some information back. Three details are important: the nick, the user name, and a channel to join. So let's send those.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">import</span> Network
+<span class="kw1">import</span> System<span class="sy0">.</span><span class="kw4">IO</span>
+<span class="kw1">import</span> Text<span class="sy0">.</span>Printf
+&#160;
+server <span class="sy0">=</span> <span class="st0">&quot;irc.freenode.org&quot;</span>
+port   <span class="sy0">=</span> <span class="nu0">6667</span>
+chan   <span class="sy0">=</span> <span class="st0">&quot;#tutbot-testing&quot;</span>
+nick   <span class="sy0">=</span> <span class="st0">&quot;tutbot&quot;</span>
+&#160;
+main <span class="sy0">=</span> <span class="kw1">do</span>
+    h <span class="sy0">&lt;-</span> connectTo server <span class="br0">&#40;</span>PortNumber <span class="br0">&#40;</span><span class="kw3">fromIntegral</span> port<span class="br0">&#41;</span><span class="br0">&#41;</span>
+    hSetBuffering h NoBuffering
+    write h <span class="st0">&quot;NICK&quot;</span> nick
+    write h <span class="st0">&quot;USER&quot;</span> <span class="br0">&#40;</span>nick<span class="sy0">++</span><span class="st0">&quot; 0 *&#160;:tutorial bot&quot;</span><span class="br0">&#41;</span>
+    write h <span class="st0">&quot;JOIN&quot;</span> chan
+    listen h
+&#160;
+write <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+write h s t <span class="sy0">=</span> <span class="kw1">do</span>
+    hPrintf h <span class="st0">&quot;%s&#160;%s<span class="es0">\r</span><span class="es0">\n</span>&quot;</span> s t
+    printf    <span class="st0">&quot;&gt;&#160;%s&#160;%s<span class="es0">\n</span>&quot;</span> s t
+&#160;
+listen <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+listen h <span class="sy0">=</span> forever <span class="sy0">$</span> <span class="kw1">do</span>
+    s <span class="sy0">&lt;-</span> hGetLine h
+    <span class="kw3">putStrLn</span> s
+  <span class="kw1">where</span>
+    forever a <span class="sy0">=</span> <span class="kw1">do</span> a; forever a</pre></div></div>
+<p>Now, we've done quite a few things here. Firstly, we import <code>Text.Printf</code>, which will be useful. We also set up a channel name and bot nickname. The <code>main</code> function has been extended to send messages back to the IRC server using a <code>write</code> function. Let's look at that a bit more closely:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">write <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+write h s t <span class="sy0">=</span> <span class="kw1">do</span>
+    hPrintf h <span class="st0">&quot;%s&#160;%s<span class="es0">\r</span><span class="es0">\n</span>&quot;</span> s t
+    printf    <span class="st0">&quot;&gt;&#160;%s&#160;%s<span class="es0">\n</span>&quot;</span> s t</pre></div></div>
+<p>We've given <code>write</code> an explicit type to help document it, and we'll use explicit types signatures from now on, as they're just good practice (though of course not required, as Haskell uses type inference to work out the types anyway).
+</p><p>The <code>write</code> function takes 3 arguments; a handle (our socket), and then two strings representing an IRC protocol action, and any arguments it takes. <code>write</code> then uses <code>hPrintf</code> to build an IRC message and write it over the wire to the server. For debugging purposes we also print to standard output the message we send.
+</p><p>Our second function, <code>listen</code>, is as follows:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">listen <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+listen h <span class="sy0">=</span> forever <span class="sy0">$</span> <span class="kw1">do</span>
+    s <span class="sy0">&lt;-</span> hGetLine h
+    <span class="kw3">putStrLn</span> s
+  <span class="kw1">where</span>
+    forever a <span class="sy0">=</span> <span class="kw1">do</span> a; forever a</pre></div></div>
+<p>This function takes a Handle argument, and sits in an infinite loop reading lines of text from the network and printing them. We take advantage of two powerful features; lazy evaluation and higher order functions to roll our own loop control structure, <code>forever</code>, as a normal function! <code>forever</code> takes a chunk of code as an argument, evaluates it and recurses - an infinite loop function.  It is very common to roll our own control structures in Haskell this way, using higher order functions. No need to add new syntax to the language, lisp-like macros or meta programming - you just write a normal function to implement whatever control flow you wish. We can also avoid <code>do</code>-notation, and directly write: <code>forever a = a &gt;&gt; forever a</code>.
+</p><p>Let's run this thing:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="sy0">$</span> runhaskell <span class="nu0">2</span><span class="sy0">.</span>hs
+<span class="sy0">&gt;</span> NICK tutbot
+<span class="sy0">&gt;</span> USER tutbot <span class="nu0">0</span> <span class="sy0">*</span>&#160;:tutorial bot
+<span class="sy0">&gt;</span> JOIN #tutbot<span class="sy0">-</span>testing
+NOTICE AUTH&#160;:<span class="sy0">***</span> Looking up your hostname<span class="sy0">...</span>
+NOTICE AUTH&#160;:<span class="sy0">***</span> Found your hostname<span class="sy0">,</span> welcome back
+NOTICE AUTH&#160;:<span class="sy0">***</span> Checking ident
+NOTICE AUTH&#160;:<span class="sy0">***</span> No identd <span class="br0">&#40;</span>auth<span class="br0">&#41;</span> response
+:orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net 001 tutbot&#160;:Welcome to the freenode IRC Network tutbot
+:orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net 002 tutbot&#160;:Your host is orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net
+<span class="sy0">...</span>
+:tutbot<span class="sy0">!</span>n<span class="sy0">=</span>tutbot<span class="sy0">@</span>aa<span class="sy0">.</span>bb<span class="sy0">.</span>cc<span class="sy0">.</span>dd JOIN&#160;:#tutbot<span class="sy0">-</span>testing
+:orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net MODE #tutbot<span class="sy0">-</span>testing <span class="sy0">+</span>ns
+:orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net <span class="nu0">353</span> tutbot <span class="sy0">@</span> #tutbot<span class="sy0">-</span>testing&#160;:<span class="sy0">@</span>tutbot
+:orwell<span class="sy0">.</span>freenode<span class="sy0">.</span>net <span class="nu0">366</span> tutbot #tutbot<span class="sy0">-</span>testing&#160;:End <span class="kw1">of</span> <span class="sy0">/</span>NAMES list<span class="sy0">.</span></pre></div></div>
+<p>And we're in business! From an IRC client, we can watch the bot connect:
+</p>
+<pre>   15:02 -- tutbot [n=tutbot@aa.bb.cc.dd] has joined #tutbot-testing
+   15:02  dons&gt; hello
+</pre>
+<p>And the bot logs to standard output:
+</p>
+<pre>  &#160;:dons!i=dons@my.net PRIVMSG #tutbot-testing&#160;:hello
+</pre>
+<p>We can now implement some commands.
+</p>
+<h2> <span class="mw-headline" id="A_simple_interpreter">3  A simple interpreter </span></h2>
+<p>Add these additional imports before changing the <code>listen</code> function.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">import</span> Data<span class="sy0">.</span>List
+<span class="kw1">import</span> System<span class="sy0">.</span>Exit</pre></div></div>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">listen <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+listen h <span class="sy0">=</span> forever <span class="sy0">$</span> <span class="kw1">do</span>
+    t <span class="sy0">&lt;-</span> hGetLine h
+    <span class="kw1">let</span> s <span class="sy0">=</span> <span class="kw3">init</span> t
+    <span class="kw1">if</span> ping s <span class="kw1">then</span> pong s <span class="kw1">else</span> eval h <span class="br0">&#40;</span>clean s<span class="br0">&#41;</span>
+    <span class="kw3">putStrLn</span> s
+  <span class="kw1">where</span>
+    forever a <span class="sy0">=</span> a <span class="sy0">&gt;&gt;</span> forever a
+&#160;
+    clean     <span class="sy0">=</span> <span class="kw3">drop</span> <span class="nu0">1</span> <span class="sy0">.</span> <span class="kw3">dropWhile</span> <span class="br0">&#40;</span><span class="sy0">/=</span> <span class="st0">':'</span><span class="br0">&#41;</span> <span class="sy0">.</span> <span class="kw3">drop</span> <span class="nu0">1</span>
+&#160;
+    ping x    <span class="sy0">=</span> <span class="st0">&quot;PING&#160;:&quot;</span> `isPrefixOf` x
+    pong x    <span class="sy0">=</span> write h <span class="st0">&quot;PONG&quot;</span> <span class="br0">&#40;</span><span class="st0">':'</span>&#160;: <span class="kw3">drop</span> <span class="nu0">6</span> x<span class="br0">&#41;</span></pre></div></div>
+<p>We add 3 features to the bot here by modifying <code>listen</code>.
+Firstly, it responds to <code>PING</code> messages: <code>if ping s then pong s ... </code>.
+This is useful for servers that require pings to keep clients connected.
+Before we can process a command, remember the IRC protocol generates
+input lines of the form:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">:dons<span class="sy0">!</span>i<span class="sy0">=</span>dons<span class="sy0">@</span>my<span class="sy0">.</span>net PRIVMSG #tutbot<span class="sy0">-</span>testing&#160;:<span class="sy0">!</span><span class="kw3">id</span> foo</pre></div></div>
+<p>so we need a <code>clean</code> function to simply drop the leading ':' character, and then everything up to the next ':', leaving just the actual command content. We then pass this cleaned up string to <code>eval</code>, which then dispatches bot commands.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">eval <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+eval h    <span class="st0">&quot;!quit&quot;</span>                <span class="sy0">=</span> write h <span class="st0">&quot;QUIT&quot;</span> <span class="st0">&quot;:Exiting&quot;</span> <span class="sy0">&gt;&gt;</span> exitWith ExitSuccess
+eval h x <span class="sy0">|</span> <span class="st0">&quot;!id &quot;</span> `isPrefixOf` x <span class="sy0">=</span> privmsg h <span class="br0">&#40;</span><span class="kw3">drop</span> <span class="nu0">4</span> x<span class="br0">&#41;</span>
+eval <span class="sy0">_</span>   <span class="sy0">_</span>                       <span class="sy0">=</span> <span class="kw3">return</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="co1">-- ignore everything else</span></pre></div></div>
+<p>So, if the single string "!quit" is received, we inform the server and exit the program. If a string beginning with "!id" appears, we echo any argument string back to the server (<code>id</code> is the Haskell identity function, which just returns its argument). Finally, if no other matches occur, we do nothing.
+</p><p>We add the <code>privmsg</code> function - a useful wrapper over <code>write</code> for sending <code>PRIVMSG</code> lines to the server.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">privmsg <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+privmsg h s <span class="sy0">=</span> write h <span class="st0">&quot;PRIVMSG&quot;</span> <span class="br0">&#40;</span>chan <span class="sy0">++</span> <span class="st0">&quot;&#160;:&quot;</span> <span class="sy0">++</span> s<span class="br0">&#41;</span></pre></div></div>
+<p>Here's a transcript from our minimal bot running in channel:
+</p>
+<pre>   15:12 -- tutbot [n=tutbot@aa.bb.cc.dd] has joined #tutbot-testing
+   15:13  dons&gt;&#160;!id hello, world!
+   15:13  tutbot&gt; hello, world!
+   15:13  dons&gt;&#160;!id very pleased to meet you.
+   15:13  tutbot&gt; very pleased to meet you.
+   15:13  dons&gt;&#160;!quit
+   15:13 -- tutbot [n=tutbot@aa.bb.cc.dd] has quit [Client Quit]
+</pre>
+<p>Now, before we go further, let's refactor the code a bit.
+</p>
+<h2> <span class="mw-headline" id="Roll_your_own_monad">4  Roll your own monad </span></h2>
+<p>A small annoyance so far has been that we've had to thread around our socket to every function that needs to talk to the network. The socket is essentially <em>immutable state</em>, that could be treated as a global read only value in other languages. In Haskell, we can implement such a structure using a state <em>monad</em>. Monads are a very powerful abstraction, and we'll only touch on them here. The interested reader is referred to <a rel="nofollow" class="external text" href="http://www.haskell.org/haskellwiki/All_About_Monads">All About Monads</a>. We'll be using a custom monad specifically to implement a read-only global state for our bot.
+</p><p>The key requirement is that we wish to be able to perform IO actions, as well as thread a small state value transparently through the program. As this is Haskell, we can take the extra step of partitioning our stateful code from all other program code, using a new type.
+</p><p>So let's define a small state monad:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">data</span> Bot <span class="sy0">=</span> Bot <span class="br0">&#123;</span> socket <span class="sy0">::</span> Handle <span class="br0">&#125;</span>
+&#160;
+<span class="kw1">type</span> Net <span class="sy0">=</span> ReaderT Bot <span class="kw4">IO</span></pre></div></div>
+<p>Firstly, we define a data type for the global state. In this case, it is the <code>Bot</code> type, a simple struct storing our network socket. We then layer this data type over our existing IO code, with a <em>monad transformer</em>. This isn't as scary as it sounds and the effect is that we can just treat the socket as a global read-only value anywhere we need it. We'll call this new io + state structure the <code>Net</code> monad. <code>ReaderT</code> is a <em>type constructor</em>, essentially a type function, that takes 2 types as arguments, building a result type: the <code>Net</code> monad type.
+</p><p>We can now throw out all that socket threading and just grab the socket when we need it. The key steps are connecting to the server, followed by the initialisation of our new state monad and then to run the main bot loop with that state. We add a small function, which takes the intial bot state and evaluates the bot's <code>run</code> loop "in" the Net monad, using the Reader monad's <code>runReaderT</code> function:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">loop st <span class="sy0">=</span> runReaderT run st</pre></div></div>
+<p>where <code>run</code> is a small function to register the bot's nick, join a channel, and start listening for commands.
+</p><p>While we're here, we can tidy up the main function a little by using <code>Control.Exception.bracket</code> to explicitly delimit the connection, shutdown and main loop phases of the program - a useful technique.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">main <span class="sy0">::</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+main <span class="sy0">=</span> bracket connect disconnect loop
+  <span class="kw1">where</span>
+    disconnect <span class="sy0">=</span> hClose <span class="sy0">.</span> socket
+    loop st    <span class="sy0">=</span> runReaderT run st</pre></div></div>
+<p>That is, the higher order function <code>bracket</code> takes 3 arguments: a function to connect to the server, a function to disconnect and a main loop to run in between. We can use <code>bracket</code> whenever we wish to run some code before and after a particular action - like <code>forever</code>, this is another control structure implemented as a normal Haskell function.
+</p><p>Rather than threading the socket around, we can now simply ask for it when needed. Note that the type of <code>write</code> changes - it is in the Net monad, which tells us that the bot must already by connected to a server (and thus it is ok to use the socket, as it is initialised).
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="co1">--</span>
+<span class="co1">-- Send a message out to the server we're currently connected to</span>
+<span class="co1">--</span>
+write <span class="sy0">::</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+write s t <span class="sy0">=</span> <span class="kw1">do</span>
+    h <span class="sy0">&lt;-</span> asks socket
+    io <span class="sy0">$</span> hPrintf h <span class="st0">&quot;%s&#160;%s<span class="es0">\r</span><span class="es0">\n</span>&quot;</span> s t
+    io <span class="sy0">$</span> printf    <span class="st0">&quot;&gt;&#160;%s&#160;%s<span class="es0">\n</span>&quot;</span> s t</pre></div></div>
+<p>In order to use both state and IO, we use the small <code>io</code> function to <em>lift</em> an IO expression into the Net monad making that IO function available to code in the <code>Net</code> monad.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">io <span class="sy0">::</span> <span class="kw4">IO</span> a <span class="sy0">-&gt;</span> Net a
+io <span class="sy0">=</span> liftIO</pre></div></div>
+<p>Similarly, we can combine IO actions with pure functions by lifting them into the IO monad. We can therefore simplify our <code>hGetLine</code> call:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">do</span> t <span class="sy0">&lt;-</span> io <span class="br0">&#40;</span>hGetLine h<span class="br0">&#41;</span>
+   <span class="kw1">let</span> s <span class="sy0">=</span> <span class="kw3">init</span> t</pre></div></div>
+<p>by lifting <code>init</code> over IO:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">do</span> s <span class="sy0">&lt;-</span> <span class="kw3">init</span> `<span class="kw3">fmap</span>` io <span class="br0">&#40;</span>hGetLine h<span class="br0">&#41;</span></pre></div></div>
+<p>The monadic, stateful, exception-handling bot in all its glory:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">import</span> Data<span class="sy0">.</span>List
+<span class="kw1">import</span> Network
+<span class="kw1">import</span> System<span class="sy0">.</span><span class="kw4">IO</span>
+<span class="kw1">import</span> System<span class="sy0">.</span>Exit
+<span class="kw1">import</span> Control<span class="sy0">.</span>Arrow
+<span class="kw1">import</span> Control<span class="sy0">.</span><span class="kw4">Monad</span><span class="sy0">.</span>Reader
+<span class="kw1">import</span> Control<span class="sy0">.</span>Exception
+<span class="kw1">import</span> Text<span class="sy0">.</span>Printf
+&#160;
+server <span class="sy0">=</span> <span class="st0">&quot;irc.freenode.org&quot;</span>
+port   <span class="sy0">=</span> <span class="nu0">6667</span>
+chan   <span class="sy0">=</span> <span class="st0">&quot;#tutbot-testing&quot;</span>
+nick   <span class="sy0">=</span> <span class="st0">&quot;tutbot&quot;</span>
+&#160;
+<span class="co1">-- The 'Net' monad, a wrapper over IO, carrying the bot's immutable state.</span>
+<span class="kw1">type</span> Net <span class="sy0">=</span> ReaderT Bot <span class="kw4">IO</span>
+<span class="kw1">data</span> Bot <span class="sy0">=</span> Bot <span class="br0">&#123;</span> socket <span class="sy0">::</span> Handle <span class="br0">&#125;</span>
+&#160;
+<span class="co1">-- Set up actions to run on start and end, and run the main loop</span>
+main <span class="sy0">::</span> <span class="kw4">IO</span> <span class="br0">&#40;</span><span class="br0">&#41;</span>
+main <span class="sy0">=</span> bracket connect disconnect loop
+  <span class="kw1">where</span>
+    disconnect <span class="sy0">=</span> hClose <span class="sy0">.</span> socket
+    loop st    <span class="sy0">=</span> runReaderT run st
+&#160;
+<span class="co1">-- Connect to the server and return the initial bot state</span>
+connect <span class="sy0">::</span> <span class="kw4">IO</span> Bot
+connect <span class="sy0">=</span> notify <span class="sy0">$</span> <span class="kw1">do</span>
+    h <span class="sy0">&lt;-</span> connectTo server <span class="br0">&#40;</span>PortNumber <span class="br0">&#40;</span><span class="kw3">fromIntegral</span> port<span class="br0">&#41;</span><span class="br0">&#41;</span>
+    hSetBuffering h NoBuffering
+    <span class="kw3">return</span> <span class="br0">&#40;</span>Bot h<span class="br0">&#41;</span>
+  <span class="kw1">where</span>
+    notify a <span class="sy0">=</span> bracket<span class="sy0">_</span>
+        <span class="br0">&#40;</span>printf <span class="st0">&quot;Connecting to&#160;%s ... &quot;</span> server <span class="sy0">&gt;&gt;</span> hFlush stdout<span class="br0">&#41;</span>
+        <span class="br0">&#40;</span><span class="kw3">putStrLn</span> <span class="st0">&quot;done.&quot;</span><span class="br0">&#41;</span>
+        a
+&#160;
+<span class="co1">-- We're in the Net monad now, so we've connected successfully</span>
+<span class="co1">-- Join a channel, and start processing commands</span>
+run <span class="sy0">::</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+run <span class="sy0">=</span> <span class="kw1">do</span>
+    write <span class="st0">&quot;NICK&quot;</span> nick
+    write <span class="st0">&quot;USER&quot;</span> <span class="br0">&#40;</span>nick<span class="sy0">++</span><span class="st0">&quot; 0 *&#160;:tutorial bot&quot;</span><span class="br0">&#41;</span>
+    write <span class="st0">&quot;JOIN&quot;</span> chan
+    asks socket <span class="sy0">&gt;&gt;=</span> listen
+&#160;
+<span class="co1">-- Process each line from the server</span>
+listen <span class="sy0">::</span> Handle <span class="sy0">-&gt;</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+listen h <span class="sy0">=</span> forever <span class="sy0">$</span> <span class="kw1">do</span>
+    s <span class="sy0">&lt;-</span> <span class="kw3">init</span> `<span class="kw3">fmap</span>` io <span class="br0">&#40;</span>hGetLine h<span class="br0">&#41;</span>
+    io <span class="br0">&#40;</span><span class="kw3">putStrLn</span> s<span class="br0">&#41;</span>
+    <span class="kw1">if</span> ping s <span class="kw1">then</span> pong s <span class="kw1">else</span> eval <span class="br0">&#40;</span>clean s<span class="br0">&#41;</span>
+  <span class="kw1">where</span>
+    forever a <span class="sy0">=</span> a <span class="sy0">&gt;&gt;</span> forever a
+    clean     <span class="sy0">=</span> <span class="kw3">drop</span> <span class="nu0">1</span> <span class="sy0">.</span> <span class="kw3">dropWhile</span> <span class="br0">&#40;</span><span class="sy0">/=</span> <span class="st0">':'</span><span class="br0">&#41;</span> <span class="sy0">.</span> <span class="kw3">drop</span> <span class="nu0">1</span>
+    ping x    <span class="sy0">=</span> <span class="st0">&quot;PING&#160;:&quot;</span> `isPrefixOf` x
+    pong x    <span class="sy0">=</span> write <span class="st0">&quot;PONG&quot;</span> <span class="br0">&#40;</span><span class="st0">':'</span>&#160;: <span class="kw3">drop</span> <span class="nu0">6</span> x<span class="br0">&#41;</span>
+&#160;
+<span class="co1">-- Dispatch a command</span>
+eval <span class="sy0">::</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+eval     <span class="st0">&quot;!quit&quot;</span>               <span class="sy0">=</span> write <span class="st0">&quot;QUIT&quot;</span> <span class="st0">&quot;:Exiting&quot;</span> <span class="sy0">&gt;&gt;</span> io <span class="br0">&#40;</span>exitWith ExitSuccess<span class="br0">&#41;</span>
+eval x <span class="sy0">|</span> <span class="st0">&quot;!id &quot;</span> `isPrefixOf` x <span class="sy0">=</span> privmsg <span class="br0">&#40;</span><span class="kw3">drop</span> <span class="nu0">4</span> x<span class="br0">&#41;</span>
+eval     <span class="sy0">_</span>                     <span class="sy0">=</span> <span class="kw3">return</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="co1">-- ignore everything else</span>
+&#160;
+<span class="co1">-- Send a privmsg to the current chan + server</span>
+privmsg <span class="sy0">::</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+privmsg s <span class="sy0">=</span> write <span class="st0">&quot;PRIVMSG&quot;</span> <span class="br0">&#40;</span>chan <span class="sy0">++</span> <span class="st0">&quot;&#160;:&quot;</span> <span class="sy0">++</span> s<span class="br0">&#41;</span>
+&#160;
+<span class="co1">-- Send a message out to the server we're currently connected to</span>
+write <span class="sy0">::</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> <span class="kw4">String</span> <span class="sy0">-&gt;</span> Net <span class="br0">&#40;</span><span class="br0">&#41;</span>
+write s t <span class="sy0">=</span> <span class="kw1">do</span>
+    h <span class="sy0">&lt;-</span> asks socket
+    io <span class="sy0">$</span> hPrintf h <span class="st0">&quot;%s&#160;%s<span class="es0">\r</span><span class="es0">\n</span>&quot;</span> s t
+    io <span class="sy0">$</span> printf    <span class="st0">&quot;&gt;&#160;%s&#160;%s<span class="es0">\n</span>&quot;</span> s t
+&#160;
+<span class="co1">-- Convenience.</span>
+io <span class="sy0">::</span> <span class="kw4">IO</span> a <span class="sy0">-&gt;</span> Net a
+io <span class="sy0">=</span> liftIO</pre></div></div>
+<p>Note that we threw in a new control structure, <code>notify</code>, for fun. Now we're almost done! Let's run this bot. Using runhaskell:
+</p>
+<pre>   $ runhaskell 4.hs
+</pre>
+<p>or using GHC:
+</p>
+<pre>   $ ghc --make 4.hs -o tutbot
+   Chasing modules from: 4.hs
+   Compiling Main             ( 4.hs, 4.o )
+   Linking ...
+   $ ./tutbot
+</pre>
+<p>If you're using Hugs, you'll have to use the <code>-98</code> flag:
+</p>
+<pre>   $ runhugs -98 4.hs
+</pre>
+<p>And from an IRC client we can watch it connect:
+</p>
+<pre>   15:26 -- tutbot [n=tutbot@aa.bb.cc.dd] has joined #tutbot-testing
+   15:28  dons&gt;&#160;!id all good?
+   15:28  tutbot&gt; all good?
+   15:28  dons&gt;&#160;!quit
+   15:28 -- tutbot [n=tutbot@aa.bb.cc.dd] has quit [Client Quit]
+</pre>
+<p>So we now have a bot with explicit read-only monadic state, error handling, and some basic IRC operations. If we wished to add read-write state, we need only change the <code>ReaderT</code> transformer to <code>StateT</code>.
+</p>
+<h2> <span class="mw-headline" id="Extending_the_bot">5  Extending the bot </span></h2>
+<p>Let's implement a basic new command: uptime tracking. Conceptually, we need to remember the time the bot starts. Then, if a user requests, we work out the total running time and print it as a string. A nice way to do this is to extend the bot's state with a start time field:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">import</span> System<span class="sy0">.</span>Time</pre></div></div>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="kw1">data</span> Bot <span class="sy0">=</span> Bot <span class="br0">&#123;</span> socket <span class="sy0">::</span> Handle<span class="sy0">,</span> starttime <span class="sy0">::</span> ClockTime <span class="br0">&#125;</span></pre></div></div>
+<p>We can then modify the initial <code>connect</code> function to also set the start time.
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">connect <span class="sy0">::</span> <span class="kw4">IO</span> Bot
+connect <span class="sy0">=</span> notify <span class="sy0">$</span> <span class="kw1">do</span>
+    t <span class="sy0">&lt;-</span> getClockTime
+    h <span class="sy0">&lt;-</span> connectTo server <span class="br0">&#40;</span>PortNumber <span class="br0">&#40;</span><span class="kw3">fromIntegral</span> port<span class="br0">&#41;</span><span class="br0">&#41;</span>
+    hSetBuffering h NoBuffering
+    <span class="kw3">return</span> <span class="br0">&#40;</span>Bot h t<span class="br0">&#41;</span></pre></div></div>
+<p>We then add a new case to the <code>eval</code> function, to handle uptime requests:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">eval <span class="st0">&quot;!uptime&quot;</span> <span class="sy0">=</span> uptime <span class="sy0">&gt;&gt;=</span> privmsg</pre></div></div>
+<p>This will just run the <code>uptime</code> function and send it back to the server. <code>uptime</code> itself is:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1">uptime <span class="sy0">::</span> Net <span class="kw4">String</span>
+uptime <span class="sy0">=</span> <span class="kw1">do</span>
+    now  <span class="sy0">&lt;-</span> io getClockTime
+    zero <span class="sy0">&lt;-</span> asks starttime
+    <span class="kw3">return</span> <span class="sy0">.</span> pretty <span class="sy0">$</span> diffClockTimes now zero</pre></div></div>
+<p>That is, in the Net monad, find the current time and the start time, and then calculate the difference, returning that number as a string. Rather than use the normal representation for dates, we'll write our own custom formatter for dates:
+</p>
+<div dir="ltr" class="mw-geshi mw-content-ltr"><div class="haskell source-haskell"><pre class="de1"><span class="co1">--</span>
+<span class="co1">-- Pretty print the date in '1d 9h 9m 17s' format</span>
+<span class="co1">--</span>
+pretty <span class="sy0">::</span> TimeDiff <span class="sy0">-&gt;</span> <span class="kw4">String</span>
+pretty td <span class="sy0">=</span>
+  <span class="kw3">unwords</span> <span class="sy0">$</span> <span class="kw3">map</span> <span class="br0">&#40;</span><span class="kw3">uncurry</span> <span class="br0">&#40;</span><span class="sy0">++</span><span class="br0">&#41;</span> <span class="sy0">.</span> first <span class="kw3">show</span><span class="br0">&#41;</span> <span class="sy0">$</span>
+  <span class="kw1">if</span> <span class="kw3">null</span> diffs <span class="kw1">then</span> <span class="br0">&#91;</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="st0">&quot;s&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span> <span class="kw1">else</span> diffs
+  <span class="kw1">where</span> merge <span class="br0">&#40;</span>tot<span class="sy0">,</span>acc<span class="br0">&#41;</span> <span class="br0">&#40;</span>sec<span class="sy0">,</span>typ<span class="br0">&#41;</span> <span class="sy0">=</span> <span class="kw1">let</span> <span class="br0">&#40;</span>sec<span class="st0">',tot'</span><span class="br0">&#41;</span> <span class="sy0">=</span> <span class="kw3">divMod</span> tot sec
+                                    <span class="kw1">in</span> <span class="br0">&#40;</span>tot<span class="st0">',(sec'</span><span class="sy0">,</span>typ<span class="br0">&#41;</span>:acc<span class="br0">&#41;</span>
+        metrics <span class="sy0">=</span> <span class="br0">&#91;</span><span class="br0">&#40;</span><span class="nu0">86400</span><span class="sy0">,</span><span class="st0">&quot;d&quot;</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="br0">&#40;</span><span class="nu0">3600</span><span class="sy0">,</span><span class="st0">&quot;h&quot;</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="br0">&#40;</span><span class="nu0">60</span><span class="sy0">,</span><span class="st0">&quot;m&quot;</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span><span class="st0">&quot;s&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span>
+        diffs <span class="sy0">=</span> <span class="kw3">filter</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="sy0">/=</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="sy0">.</span> <span class="kw3">fst</span><span class="br0">&#41;</span> <span class="sy0">$</span> <span class="kw3">reverse</span> <span class="sy0">$</span> <span class="kw3">snd</span> <span class="sy0">$</span>
+                <span class="kw3">foldl</span><span class="st0">' merge (tdSec td,[]) metrics</span></pre></div></div>
+<p>And that's it. Running the bot with this new command:
+</p>
+<pre>   16:03 -- tutbot [n=tutbot@aa.bb.cc.dd] has joined #tutbot-testing
+   16:03  dons&gt;&#160;!uptime
+   16:03  tutbot&gt; 51s
+   16:03  dons&gt;&#160;!uptime
+   16:03  tutbot&gt; 1m 1s
+   16:12  dons&gt;&#160;!uptime
+   16:12  tutbot&gt; 9m 46s
+</pre>
+<h2> <span class="mw-headline" id="Where_to_now.3F">6  Where to now? </span></h2>
+<p>This is just a flavour of application programming in Haskell, and only
+hints at the power of Haskell's lazy evaluation, static typing, monadic
+effects and higher order functions. There is much, much more to be said
+on these topics. Some places to start:
+</p>
+<ul><li> A <a href="/Roll_your_own_IRC_bot/Transcript" title="Roll your own IRC bot/Transcript">full transcript</a>.
+</li><li> <a href="/Haskell" title="Haskell">Haskell.org</a>
+</li><li> <a href="/Example_code" title="Example code">More Haskell code</a>
+</li><li> <a href="/Books_and_tutorials" title="Books and tutorials">Learning Haskell</a>
+</li><li> A gallery of <a href="/Libraries_and_tools/Network" title="Libraries and tools/Network" class="mw-redirect">network apps</a> in Haskell
+</li></ul>
+<p>Or take the bot home and hack! Some suggestions:
+</p>
+<ul><li> Use <code>forkIO</code> to add a command line interface, and you've got yourself an irc client with 4 more lines of code.
+</li><li> Port some commands from <a href="/Lambdabot" title="Lambdabot">Lambdabot</a>.
+</li></ul>
+<p>Author: <a rel="nofollow" class="external text" href="http://www.cse.unsw.edu.au/~dons">Don Stewart</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 239/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb_haskell:pcache:idhash:2034-0!*!0!1!en!*!* and timestamp 20151229025638 -->
+</div><div class="printfooter">
+Retrieved from "<a href="https://wiki.haskell.org/index.php?title=Roll_your_own_IRC_bot&amp;oldid=59856">https://wiki.haskell.org/index.php?title=Roll_your_own_IRC_bot&amp;oldid=59856</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>			<!-- end content -->
+						<div class="visualClear"></div>
+		</div>
+	</div>
+		</div></div>
+		<div id="column-one">
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><a href="/Haskell">Haskell</a></li>
+				<li id="n-portal"><a href="/HaskellWiki:Community">Wiki community</a></li>
+				<li id="n-recentchanges"><a href="/Special:RecentChanges">Recent changes</a></li>
+				<li id="n-randompage"><a href="/Special:Random">Random page</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Roll_your_own_IRC_bot">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Roll_your_own_IRC_bot">Related changes</a></li>
+<li id="t-specialpages"><a href="/Special:SpecialPages">Special pages</a></li>
+				<li id="t-print"><a href="/index.php?title=Roll_your_own_IRC_bot&amp;printable=yes" rel="alternate">Printable version</a></li>				<li id="t-permalink"><a href="/index.php?title=Roll_your_own_IRC_bot&amp;oldid=59856">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="//www.mediawiki.org/"><img src="/wikistatic/skins//common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 17 June 2015, at 00:53.</li>
+					<li id="copyright">Recent content is available under <a href="/HaskellWiki:Copyrights" title="HaskellWiki:Copyrights">a simple permissive license</a>.</li>
+					<li id="privacy"><a href="/HaskellWiki:Privacy_policy" title="HaskellWiki:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/HaskellWiki:About" title="HaskellWiki:About">About HaskellWiki</a></li>
+					<li id="disclaimer"><a href="/HaskellWiki:General_disclaimer" title="HaskellWiki:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready"], null, true);
+}</script>
+<script src="https://wiki.haskell.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=hawiki&amp;*"></script>
+<!-- Served in 0.087 secs. --><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15375175-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body></html>
