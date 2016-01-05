@@ -75,7 +75,7 @@ putStrLn "Printing a string\n"
 last :: [a] -> a
 last takes any list of type 'a' and return element from it.
 ** type variable name are  kept short 'a', 'b' etc
-*  function can be called using infix operator  a1 `func` a2 a3 instead of func a1 a2 a3
+* function can be called using infix operator  a1 `func` a2 a3 instead of func a1 a2 a3
 ** see if an element exists|not exist in a list
     3 `elem` [1,2,3] --> True
     elem 3 [1,2,3]  --> True
