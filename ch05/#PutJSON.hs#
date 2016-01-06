@@ -1,4 +1,8 @@
 import Data.List(intercalate)
 import SimpleJSON
 
-renderJValue :: JValue ->
+renderJValue :: JValue -> String
+
+renderJValue (JString s) = show s
+renderJValue (JNumber n) = show n
+renderJValue (JBool True)= "true"
