@@ -3,7 +3,7 @@ import SimpleJSON
 data Doc = Doc deriving(Show)
 
 string :: String -> Doc
-String s = undefined
+string s = undefined
 
 text :: String -> Doc
 text s = undefined
