@@ -1,4 +1,5 @@
 module PrettyJSON (renderJValue) where
+import Prettify
 
 renderJValue :: JValue -> Doc
 
