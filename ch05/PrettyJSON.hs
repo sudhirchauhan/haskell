@@ -1,5 +1,3 @@
-module PrettyJSON
-       (
-         Doc(..)
-         ,renderJValue
-        ) where
+module PrettyJSON (renderJValue) where
+
+renderJValue :: JValue 
