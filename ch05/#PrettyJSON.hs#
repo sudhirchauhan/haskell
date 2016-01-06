@@ -1,0 +1,10 @@
+module PrettyJSON (renderJValue) where
+
+renderJValue :: JValue -> Doc
+
+renderJValue (JBool True) = text "true"
+renderJValue (JBool True) = text "true"
+renderJValue (JBool True) = text "true"
+renderJValue (JBool True) = text "true"
+renderJValue (JBool True) = text "true"
+
