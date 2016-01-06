@@ -18,6 +18,7 @@ lastButOne :: ([a] -> a)
 -- lastButOne xs = last . init $ xs
 
 --this one uses reverse and head and drop.
+lastButOne [] = error "too short"
 lastButOne xs = head . drop 1 . reverse $ xs
 -- this is equilent to
 -- lastButOne xs = head(drop 1 (reverse xs))
