@@ -13,12 +13,12 @@ lastButOne :: ([a] -> a)
 --lastButOne (_:xs)   = lastButOne xs
 
 -- this one uses built in functions last and init
-lastButOne xs = (last . init)  xs
+--lastButOne xs = (last . init)  xs
 -- here $ operator replaces brackets
 -- lastButOne xs = last . init $ xs
 
 --this one uses reverse and head and drop.
-lastButOne xs = head . drop 1 . reverse xs
+lastButOne xs = head . drop 1 . reverse $ xs
 -- this is equilent to
 -- lastButOne xs = head(drop 1 (reverse xs))
 
